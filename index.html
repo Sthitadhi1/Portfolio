@@ -3,12 +3,24 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<style>:root{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}body{margin:0}[hidden]{display:none!important}</style>
-</head>
-<body>
 <title>Sthitadhi Story Mode</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="A voxel story-mode portfolio of Sthitadhi Maity: walk through every chapter, from SRM to NanoExchange, PharmaIQ and JobPulse.">
+<meta name="description" content="Sthitadhi Maity's portfolio as a 3D voxel world. Scroll through 11 chapters or walk in with WASD to explore a building for every project: PharmaIQ, NanoExchange, JobPulse, GNN fraud detection and more.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sthitadhi Maity">
+<meta property="og:title" content="Sthitadhi Maity · Story Mode portfolio">
+<meta property="og:description" content="A 3D voxel world you can walk through: a building for every project, from PharmaIQ and NanoExchange to JobPulse. Final-year CS student at SRM, Chennai.">
+<meta property="og:url" content="https://sthitadhi1.github.io/Portfolio/">
+<meta property="og:image" content="https://sthitadhi1.github.io/Portfolio/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A blocky 3D world with the title Sthitadhi Maity, Story mode, 11 chapters">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sthitadhi Maity · Story Mode portfolio">
+<meta name="twitter:description" content="A 3D voxel world you can walk through: a building for every project, from PharmaIQ and NanoExchange to JobPulse.">
+<meta name="twitter:image" content="https://sthitadhi1.github.io/Portfolio/og-image.png">
+<meta name="theme-color" content="#0c0a12">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'%3E%3Cpath fill='%235ea83b' d='M8 1 15 4.5 8 8 1 4.5z'/%3E%3Cpath fill='%237a5232' d='M1 4.5 8 8v7L1 11.5z'/%3E%3Cpath fill='%23593a22' d='M15 4.5 8 8v7l7-3.5z'/%3E%3Cpath fill='%234a8f2e' d='M1 4.5 8 8v2L1 6.5zM15 4.5 8 8v2l7-3.5z'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -209,6 +221,7 @@ html.explore{overflow:hidden}
 }
 /* HUD buttons sit inside a click-through bar, so they opt back in to pointer events */
 .hud .mc-btn{pointer-events:auto}
+.og .hud,.og #toasts,.og #bubble,.og #loader,.og #crosshair{display:none !important}
 /* survival HUD, overlays, inventory and reader */
 #stats{display:none;width:min(560px,100%);justify-content:space-between;align-items:flex-end;gap:8px}
 .survival #stats{display:flex}
@@ -255,7 +268,9 @@ html.explore{overflow:hidden}
   .toast,.toast.out{animation-duration:.01s}
 }
 </style>
-
+<style>:root{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}body{margin:0}[hidden]{display:none!important}</style>
+</head>
+<body>
 <div id="loader" role="status" aria-live="polite">
   <div class="ld-box">
     <p class="ld-title">Generating world</p>
@@ -556,6 +571,7 @@ html.explore{overflow:hidden}
 <script type="module">
 import * as THREE from 'three';
 document.documentElement.classList.add('js');
+const OG=new URLSearchParams(location.search).has('og');if(OG)document.documentElement.classList.add('og'); // ?og renders a clean frame for the social preview image
 
 const $ = s => document.querySelector(s);
 const V3 = THREE.Vector3;
@@ -2130,7 +2146,7 @@ resize();
 await step(1,'Ready');
 const loader=$('#loader');loader.classList.add('done');worldReady=true;
 if(soundOn&&!audioUnlocked)setTimeout(()=>{if(!audioUnlocked)toast('Sound is on','Click anywhere to start the music','lamp')},1200);
-let last=performance.now(),cS=scrollToC(scrollY),prevCe=cS,camPos=new V3(),camLook=new V3(),introT=REDUCED?1:0,visited=new Set([0]),onCard=-1,stepAcc=0,fwT=0,cheerT=0,arrivedAt=performance.now(),lastStation=-1;
+let last=performance.now(),cS=scrollToC(scrollY),prevCe=cS,camPos=new V3(),camLook=new V3(),introT=(REDUCED||OG)?1:0,visited=new Set([0]),onCard=-1,stepAcc=0,fwT=0,cheerT=0,arrivedAt=performance.now(),lastStation=-1;
 const envA=new THREE.Color(),tmpC=new THREE.Color(),tmpV=new V3(),avPos=new V3(.5,8,4),pipPos=new V3(1.5,10,5);
 const camOffsetMouse=new V3();let fov=58,offX=0,offY=0,bubbleOn=false;
 const hudChapter=$('#hudChapter'),hudCoords=$('#hudCoords'),xpFill=$('#xpFill'),xpLevel=$('#xpLevel');
@@ -2276,6 +2292,5 @@ function applyQuality(){
 }
 requestAnimationFrame(frame);
 </script>
-
 </body>
 </html>
