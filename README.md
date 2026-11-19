@@ -18,16 +18,6 @@ A 3D voxel portfolio that tells my story in 11 chapters. Scroll to travel throug
 | 10 | Desified and ELEVATE | Store and office |
 | 11 | Skills and contact | The summit |
 
-## Run it locally
-
-It is a single `index.html` with no build step. Serve the folder over HTTP, for example:
-
-```bash
-npx serve .
-```
-
-Or open the folder in VS Code and use the **Live Server** extension. It needs an internet connection for three.js and the fonts, which load from public CDNs.
-
 ## Controls
 
 - **Story mode:** scroll or use the arrow keys.
